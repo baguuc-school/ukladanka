@@ -7,6 +7,40 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Label FontSize="21" FontWeight="Bold" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Margin="342,46,342,350">Układanka</Label>
+        <Grid Width="300" Height="300" Margin="250,109,250,25">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
+            <Button Background="Beige" Grid.Row="0" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellA1">1</Button>
+            <Button Background="Beige" Grid.Row="0" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellB1">2</Button>
+            <Button Background="Beige" Grid.Row="0" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellC1">3</Button>
+            <Button Background="Beige" Grid.Row="0" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellD1">4</Button>
+
+            <Button Background="Beige" Grid.Row="1" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellA2">5</Button>
+            <Button Background="Beige" Grid.Row="1" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellB2">6</Button>
+            <Button Background="Beige" Grid.Row="1" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellC2">7</Button>
+            <Button Background="Beige" Grid.Row="1" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellD2">8</Button>
+
+            <Button Background="Beige" Grid.Row="2" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellA3">9</Button>
+            <Button Background="Beige" Grid.Row="2" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellB3">10</Button>
+            <Button Background="Beige" Grid.Row="2" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellC3">11</Button>
+            <Button Background="Beige" Grid.Row="2" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellD3">12</Button>
+
+            <Button Background="Beige" Grid.Row="3" Grid.Column="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellA4">13</Button>
+            <Button Background="Beige" Grid.Row="3" Grid.Column="1" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellB4">14</Button>
+            <Button Background="Beige" Grid.Row="3" Grid.Column="2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellC4">15</Button>
+            <Button Background="Beige" Grid.Row="3" Grid.Column="3" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="21" x:Name="CellD4"></Button>
+        </Grid>
     </Grid>
 </Window>
