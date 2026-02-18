@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Data.Common;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace Ukladanka
@@ -16,24 +17,42 @@ namespace Ukladanka
             InitCells();
         }
 
+        /// <summary>
+        /// Handler eventu kliknięcia na dowolną komórkę.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void CellClick(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
             if (button == null) return;
-            
-            string buttonName = button.Name.ToLower();
-            string cellString = buttonName.Replace("cell", "");
-            char column = cellString.ElementAt(0);
-            int row = int.Parse(cellString.ElementAt(1).ToString());
 
-            (char, int)? move = CheckMove(column, row);
+            (char, int) currentCell = ParseCellFromButtonName(button.Name); 
+            (char, int)? move = CheckMove(currentCell);
 
             // ruch jest nullem - żaden nie jest możliwy
             if (move == null) return;
 
-            string currentValue = GetCellTextValue(column, row)!;
-            SetCellTextValue(column, row, null);
-            SetCellTextValue(move.Value.Item1, move.Value.Item2, currentValue);
+            (char, int) moveValue = move.Value;
+
+            SwapCells(currentCell, moveValue);
+        }
+
+        /// <summary>
+        /// Parsuje adres komórki z nazwy przycisku do którego jest przypisana.
+        /// </summary>
+        /// <param name="buttonName"></param>
+        /// <returns></returns>
+        private (char, int) ParseCellFromButtonName(string buttonName)
+        {
+            buttonName = buttonName.ToLower();
+            string cellString = buttonName.Replace("cell", "");
+            char column = cellString.ElementAt(0);
+            int row = int.Parse(cellString.ElementAt(1).ToString());
+
+            (char, int) cell = (column, row);
+
+            return cell;
         }
 
         /// <summary>
@@ -192,6 +211,16 @@ namespace Ukladanka
         }
 
         /// <summary>
+        /// Alias do wywoływania z tuple zamiast dwoma osobnymi parametrami.
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <returns></returns>
+        private (char, int)? CheckMove((char, int) cell)
+        {
+            return CheckMove(cell.Item1, cell.Item2);
+        }
+
+        /// <summary>
         /// Zwraca wartość tekstową z komórki identyfikowanej przez podany znak kolumny i numer wiersza.
         /// Zwraca null jeżeli podana komórka nie istnieje.
         /// </summary>
@@ -205,6 +234,16 @@ namespace Ukladanka
 
             if (button == null) return null;
             else return (string?) button.Content;
+        }
+
+        /// <summary>
+        /// Alias do wywoływania z tuple zamiast dwoma osobnymi parametrami.
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="value"></param>
+        private string? GetCellTextValue((char, int) cell)
+        {
+            return GetCellTextValue(cell.Item1, cell.Item2);
         }
 
         /// <summary>
@@ -223,11 +262,53 @@ namespace Ukladanka
             else button.Content = value;
         }
 
+        /// <summary>
+        /// Alias do wywoływania z tuple zamiast dwoma osobnymi parametrami.
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="value"></param>
+        private void SetCellTextValue((char, int) cell, string? value)
+        {
+            SetCellTextValue(cell.Item1, cell.Item2, value);
+        }
+
+        /// <summary>
+        /// Sprawdza czy podana komórka jest pusta.
+        /// </summary>
+        /// <param name="column"></param>
+        /// <param name="row"></param>
+        /// <returns></returns>
         private bool IsCellEmpty(char column, int row)
         {
             string? value = GetCellTextValue(column, row);
 
             return string.IsNullOrEmpty(value);
+        }
+
+        /// <summary>
+        /// Alias do wywoływania z tuple zamiast dwoma osobnymi parametrami.
+        /// </summary>
+        /// <param name="cell"></param>
+        /// <param name="value"></param>
+        private bool IsCellEmpty((char, int) cell)
+        {
+            string? value = GetCellTextValue(cell.Item1, cell.Item2);
+
+            return string.IsNullOrEmpty(value);
+        }
+
+        /// <summary>
+        /// Zamienia wartości dwóch komórek ze sobą.
+        /// </summary>
+        /// <param name="cell1"></param>
+        /// <param name="cell2"></param>
+        private void SwapCells((char, int) cell1, (char, int) cell2)
+        {
+            string? cell1Value = GetCellTextValue(cell1);
+            string? cell2Value = GetCellTextValue(cell2);
+
+            SetCellTextValue(cell1, cell2Value);
+            SetCellTextValue(cell2, cell1Value);
         }
     }
 }
