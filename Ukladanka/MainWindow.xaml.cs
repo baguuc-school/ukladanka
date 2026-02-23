@@ -80,14 +80,37 @@ namespace Ukladanka
                 { ('d', 4), this.CellD4 },
             };
 
-            int i = 1;
-            foreach(var (key, value) in this.CellMappings)
-            {
-                // prawy dolny róg - nie ustawiaj znaku i zakończ
-                if (key == ('d', 4)) break;
+            int[][] board = BoardGenerator.Generate();
+            RenderBoard(board);
+        }
 
-                value.Content = i.ToString();
-                i++;
+        /// <summary>
+        /// Renderuje planszę do UI. Wyrzuca błąd kiedy Config.BOARD_SIZE jest większe niż 4.
+        /// </summary>
+        /// <param name="board"></param>
+        /// <exception cref="Exception"></exception>
+        private void RenderBoard(int[][] board)
+        {
+            for (int i = 0; i < Config.BOARD_SIZE; i++)
+            {
+                for (int j = 0; j < Config.BOARD_SIZE; j++)
+                {
+                    int curr = board[i][j];
+
+                    if (curr == 0) continue;
+
+                    char columnChar = j switch
+                    {
+                        0 => 'a',
+                        1 => 'b',
+                        2 => 'c',
+                        3 => 'd',
+                        _ => throw new Exception("Nie zdefiniowano pola większego niż 'd'.")
+                    };
+                    int rowNumber = i + 1;
+
+                    this.CellMappings[(columnChar, rowNumber)].Content = curr.ToString();
+                }
             }
         }
 
